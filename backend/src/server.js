@@ -10,7 +10,7 @@ const app = express();
 
 //GET CURRENT FILE PATH
 const __dirname = path.resolve(); //2a
-console.log("path "+__dirname + " " + path.resolve()); //2b
+console.log("path "+__dirname); //2b
 
 // console.log(process.env) // 1b
 const PORT = process.env.PORT || 3000; //1a
@@ -20,9 +20,9 @@ app.use("/api/messages", messageRoutes);
 
 //DEPLOYMENT
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.use(express.static(path.join(__dirname, "../frontend/dist"))); //3a
   app.get("*", (_, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html")); //3a
+    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html")); //3b
   });
 }
 app.listen(PORT, () => console.log("Server running on port 3000 " + PORT));
@@ -39,10 +39,13 @@ a. path.resolve() : used to construct absolute path from relative path segments.
 b. __dirname: built-in varibale in Node.js that contains the absolute path of the directory where the current JS file resides.
 
 3.
-a. res.sendFile(path): an express method used to send an static file as a HTTP response to client like HTML, image etc. path arg must be an absolute path.
+a. express.static(path): it is built-in express middleware function that makes any file/folder as a static asset to serve directly to the client.
+b. res.sendFile(path): an express method used to send an static file as a HTTP response to client like HTML, image etc. path arg must be an absolute path.
 
 4. 
 a. app.use(): this method is used to bind the middleware functions to an instance of the app object.
 b. middleware: this is a function which holds the access to request(req), response(res) and the next middleware function (via next()) in the app's request-response cycle.
+
+
 
 */
