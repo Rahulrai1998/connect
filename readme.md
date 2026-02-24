@@ -1,3 +1,5 @@
+Architecture: a **monorepo architecture**, in which the backend and frontend is managed in the same repositories.
+
 tools and technologies
 
 Backend
